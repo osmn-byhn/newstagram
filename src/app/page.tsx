@@ -10,7 +10,7 @@ export default function Home() {
       {postData && postData.length > 0 ? 
       postData.map((post, key) => (<Post key={post.id} id={post.id} author={post.author} authorEmail={'test@email.com'} date={post.datepublished} thumbnail={post.thumbnail} category={post.category} title={post.title} content={post.content}  links={post.links || []} />))
        : (
-        <div>No post to display</div>
+        <div className="py-4">No post to display</div>
       )}
     </>
   )

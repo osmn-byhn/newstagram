@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input,
+textarea {
+    @apply px-4 py-2 border border-slate-300 rounded-md;
+}
+
+textarea {
+    @apply h-36;
+}
