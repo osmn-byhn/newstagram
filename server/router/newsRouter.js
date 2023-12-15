@@ -49,7 +49,11 @@ router.post('/:id', async (req, res) => {
     const user = await User.findById(denemeId)
     try {
       const newPosting = await user.newList.push({
-        description: req.body.description
+        title: req.body.title,
+        content: req.body.content,
+        links: req.body.links,
+        category: req.body.category
+        
       });
       await user.save()
       res.sendStatus(200).send(newPosting)

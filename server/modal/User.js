@@ -6,7 +6,15 @@ const newsSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    description: {
+    content: {
+        type: String,
+        required: true
+    },
+    links: {
+        type: Array,
+        required: true
+    },
+    category: {
         type: String,
         required: true
     },
