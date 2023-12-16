@@ -21,7 +21,7 @@ config()
 
 app.use('/signup', signRouter)
 app.use('/login', loginRouter)
-app.use('/todo', newsRouter)
+app.use('/news', newsRouter)
 app.use('/user', userRouter)
 
 

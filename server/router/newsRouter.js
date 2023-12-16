@@ -42,26 +42,46 @@ router.get('/:userId/:newId/done', async (req, res) => {
   })
 })
 
+
 router.post('/:id', async (req, res) => {
-  let token = req.params.id
+  let token = req.params.id;
   jwt.verify(token, 'secretKey', async (err, decoded) => {
-    const denemeId = decoded.userId
-    const user = await User.findById(denemeId)
+    if (err) {
+      return res.status(401).send('Unauthorized');
+    }
+
+    const denemeId = decoded.userId;
+    const user = await User.findById(denemeId);
+
     try {
-      const newPosting = await user.newList.push({
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+
+      const newsPosting = {
         title: req.body.title,
         content: req.body.content,
         links: req.body.links,
         category: req.body.category
-        
-      });
-      await user.save()
-      res.sendStatus(200).send(newPosting)
+      };
+
+      // Ensure that user.newsList is an array before using push
+      user.newsList = user.newsList || [];
+      user.newsList.push(newsPosting);
+
+      await user.save();
+
+      const lastNews = user.newsList[user.newsList.length - 1];
+      res.status(200).send(lastNews);
     } catch (error) {
-      res.sendStatus(500).send(error);
+      console.error(error);
+      res.status(500).send('Internal Server Error');
     }
-  })
-})
+  });
+});
+
+
+
 
 router.put('/:userId/:newId', async (req, res) => {
   const userId = req.params.userId

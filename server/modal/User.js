@@ -11,7 +11,7 @@ const newsSchema = mongoose.Schema({
         required: true
     },
     links: {
-        type: Array,
+        type: String,
         required: true
     },
     category: {
@@ -38,7 +38,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    newList: [newsSchema]
+    newsList: [newsSchema],
 })
 
 
