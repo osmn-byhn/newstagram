@@ -5,6 +5,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
+
 export default function SignIn() {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -18,7 +19,7 @@ export default function SignIn() {
         password,
       };
 
-      const response = await axios.post('http://localhost:4000/login', user);
+      const response = await axios.post('http://localhost:5000/login', user);
 
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token);
@@ -64,7 +65,7 @@ export default function SignIn() {
             placeholder="Enter your password"
           />
           <button type="submit" className="bg-slate-800 text-white px-4 py-2 mt-12 rounded-md" disabled={password.length <= 8}>Login</button>
-          <Link href="/sign-up" className="bg-[rgba('0,0,0,0')] text-black px-4 py-2 mt-1 rounded-md text-center">Sign-up</Link>
+          <Link href="/sign-in" className="bg-[rgba('0,0,0,0')] text-black px-4 py-2 mt-1 rounded-md text-center">Sign-up</Link>
         </form>
       </div>
     </div>

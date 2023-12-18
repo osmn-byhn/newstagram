@@ -37,11 +37,11 @@ router.get('/:id', async (req, res) => {
 //okeydir sonunda
 router.get('/', async (req, res) => {
   try {
-    const allNews = await User.find({}, 'newsList').populate('newsList');
+    const allNews = await User.find();
 
     return res.status(200).json({
       title: 'All news grabbed',
-      news: allNews.map(user => user.newsList)
+      news: allNews
     });
   } catch (error) {
     console.error(error);
@@ -122,7 +122,8 @@ router.post('/:id', async (req, res) => {
         title: req.body.title,
         content: req.body.content,
         links: req.body.links,
-        category: req.body.category
+        category: req.body.category,
+        image: req.body.image
       };
 
       // Ensure that user.newsList is an array before using push
