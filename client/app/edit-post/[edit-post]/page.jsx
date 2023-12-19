@@ -50,7 +50,7 @@ export default function EditPostForm() {
 
   const addLink = (e) => {
     e.preventDefault();
-    if (linkInput !== "") {
+    if (linkInput.trim() !== "") {
       setLinks((prev) => [...prev, linkInput]);
       setLinkInput("");
     }
@@ -100,7 +100,6 @@ export default function EditPostForm() {
       </Head>
       <h1 className="text-2xl font-bold my-12 text-center">Edit Post</h1>
       <form className="flex flex-col gap-2 mt-50" onSubmit={handleSubmit}>
-        {/* Diğer form alanları... */}
         <input type="text" name="title" id="title" placeholder="Title of Post" className="border" onChange={handleChange} value={formData.title} />
         <textarea name="content" id="content" placeholder="Content of post..." onChange={handleChange} value={formData.content}></textarea>
 
@@ -112,7 +111,7 @@ export default function EditPostForm() {
           links.map((link, i) => (
             <div key={i} className="flex items-center gap-4">
               <i className="bi bi-link-45deg"></i>
-              <Link href={link} className="text-[#7563DF] font-bold max-w-full overflow-hidden text-ellipsis">
+              <Link className="text-[#7563DF] font-bold max-w-full overflow-hidden text-ellipsis" href={link} passHref>
                 {link}
               </Link>
               <i className="bi bi-trash cursor-pointer" onClick={() => deleteLink(i)}></i>
