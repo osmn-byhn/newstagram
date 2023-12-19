@@ -1,4 +1,5 @@
 "use client";
+import babel from "next/babel";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
