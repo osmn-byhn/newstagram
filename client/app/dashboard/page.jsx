@@ -29,7 +29,7 @@ export default function Dashboard() {
     getItems();
   }, [router]);
 
-  const handleDelete = async (postId: string) => {
+  const handleDelete = async (postId) => {
     try {
       const response = await axios.delete(`https://newstagram-backend.onrender.com/news/${localStorage.getItem('token')}/${postId}`, {
         headers: {
