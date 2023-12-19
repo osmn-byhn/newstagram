@@ -9,7 +9,6 @@ export default function SignIn() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
   const handleLogin = async () => {
     try {
@@ -24,8 +23,8 @@ export default function SignIn() {
         localStorage.setItem('token', response.data.token);
         router.push('/');
       }
-    } catch (err) {
-      setError(err.response?.data.error || 'An error occurred');
+    } catch (error) {
+      console.error('Error fetching data:', error);
     }
   };
 
