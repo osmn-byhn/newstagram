@@ -18,7 +18,7 @@ export default function SignIn() {
         password,
       };
 
-      const response = await axios.post('http://localhost:5000/login', user);
+      const response = await axios.post('https://newstagram-backend.onrender.com/login', user);
 
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token);

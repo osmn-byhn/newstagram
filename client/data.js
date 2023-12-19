@@ -41,21 +41,47 @@ export const postData = [
     }
 ];
 
+
+
 export const categoriesData = [
     {
         id: "1",
-        name: "Technologies"
+        name: "Politics"
     },
     {
         id: "2",
-        name: "Web"
+        name: "Sports"
     },
     {
         id: "3",
-        name: "AI"
+        name: "Technology"
     },
     {
         id: "4",
-        name: "Mobile"
+        name: "Entertainment"
     },
+    {
+        id: "5",
+        name: "Health"
+    },
+    {
+        id: "6",
+        name: "Science"
+    },
+    {
+        id: "7",
+        name: "Business"
+    },
+    {
+        id: "8",
+        name: "Environment"
+    },
+    {
+        id: "9",
+        name: "World News"
+    },
+    {
+        id: "10",
+        name: "Lifestyle"
+    }
 ];

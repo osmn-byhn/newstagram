@@ -8,6 +8,7 @@ import Head from 'next/head';
 import { useRouter } from "next/navigation";
 
 export default function EditPostForm() {
+  
   const router = useRouter();
   const postId = window.location.pathname.split('/').pop();
   const token = localStorage.getItem('token');
@@ -23,7 +24,7 @@ export default function EditPostForm() {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await axios.get(`http://localhost:5000/news/${token}/${postId}`);
+        const response = await axios.get(`https://newstagram-backend.onrender.com/news/${token}/${postId}`);
         const postData = response.data;
         console.log(response);
         
@@ -72,7 +73,7 @@ export default function EditPostForm() {
       };
 
       // Veriyi güncellemek için Axios kullanımı (PUT)
-      await axios.put(`http://localhost:5000/news/${token}/${postId}`, postData);
+      await axios.put(`https://newstagram-backend.onrender.com/news/${token}/${postId}`, postData);
 
       console.log("Güncelleme işlemi başarılı");
       router.push('/dashboard'); // Güncelleme başarılı olduğunda yönlendirme
@@ -139,7 +140,7 @@ export default function EditPostForm() {
         </button>
 
         {/* Hata mesajı */}
-        <div className="text-red-500 p-2 font-bold text-center">Error Message</div>
+        <div className="text-red-500 p-2 font-bold text-center">"If the data hasn't loaded, please refresh the page with F5."</div>
       </form>
     </>
   );

@@ -7,10 +7,19 @@ import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
-import CategoriesList from "../components/CategoriesList";
 import DeleteButton from '../components/DeleteButton';
 
 export default function Home() {
+  // Sayfa ilk defa yüklendiğinde çalışacak kod
+  // Yeniden başlatma işlemi
+  if (!localStorage.getItem('pageReloaded')) {
+    // Yeniden başlatma işlemi
+    location.reload(true);
+  
+    // Bayrağı işaretleyerek bir kere yeniden başlatıldığını kaydet
+    localStorage.setItem('pageReloaded', 'true');
+  }
+
   const router = useRouter();
   const [deger, setDeger] = useState([]);
 
@@ -18,7 +27,7 @@ export default function Home() {
     
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/news/`);
+        const response = await axios.get(`https://newstagram-backend.onrender.com/news/`);
         const fetchedData = response.data.news;
         console.log(fetchedData);
         
@@ -38,16 +47,15 @@ export default function Home() {
         {/* Use the correct CDN link for Bootstrap Icons */}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" />
     </Head>
-    <CategoriesList />
     <div>
       {deger && deger.length > 0 ? (
         deger.map((post, key) => (
-          <div className='my-14' key={key}>
-            <div className='mb-4'>
+          <div className='my-20' key={key}>
+            <div >
               {post.newsList && post.newsList.length > 0 ? (
                 <ul>
                   {post.newsList.map((news, newsKey) => (
-                    <li key={newsKey}>
+                    <li key={newsKey} className='my-20'>
                       <div className='mb-4'>Posted by: <span className="font-bold">{post.fullName}</span> on <span>{news.date}</span></div>
                       <div className='w-full h-72 relative'>
                         {

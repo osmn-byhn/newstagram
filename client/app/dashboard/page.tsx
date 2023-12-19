@@ -16,7 +16,7 @@ export default function Dashboard() {
         if (localStorage.getItem('token') === null) {
           router.push('/');
         } else {
-          const response = await axios.get(`http://localhost:5000/news/${localStorage.getItem('token')}`);
+          const response = await axios.get(`https://newstagram-backend.onrender.com/news/${localStorage.getItem('token')}`);
           const deger = response.data.user.newsList;
           setDeger(deger);
           console.log(deger);
@@ -31,7 +31,7 @@ export default function Dashboard() {
 
   const handleDelete = async (postId) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/news/${localStorage.getItem('token')}/${postId}`, {
+      const response = await axios.delete(`https://newstagram-backend.onrender.com/news/${localStorage.getItem('token')}/${postId}`, {
         headers: {
           // Gerekirse Authorization veya diğer başlıkları ekleyebilirsiniz
         },

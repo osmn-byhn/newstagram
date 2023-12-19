@@ -51,7 +51,7 @@ export default function CreatePostForm() {
     };
 
     // Post işlemi için Axios kullanımı
-    const response = await axios.post(`http://localhost:5000/news/${token}`, postData);
+    const response = await axios.post(`https://newstagram-backend.onrender.com/news/${token}`, postData);
     console.log(postData.links);
     
 
@@ -118,7 +118,6 @@ export default function CreatePostForm() {
         </button>
 
         {/* Hata mesajı */}
-        <div className="text-red-500 p-2 font-bold text-center">Error Message</div>
       </form>
     </>
   );

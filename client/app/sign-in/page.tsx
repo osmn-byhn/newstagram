@@ -26,7 +26,7 @@ export default function SignIn() {
       };
       if (validRegexEmail.test(email)) {
         if (validRegexPassword.test(password)) {
-          await axios.post('http://localhost:5000/signup', user);
+          await axios.post('https://newstagram-backend.onrender.com/signup', user);
           setTimeout(() => {
             router.push('/');
           }, 7500);
