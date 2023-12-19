@@ -8,23 +8,21 @@ import Head from 'next/head';
 import { useRouter } from "next/navigation";
 
 export default function CreatePostForm() {
-  const router = useRouter();
-  if (typeof window !== "undefined") {
-    // Tarayıcı tarafında çalışan kodlar buraya gelecek
-    const token = localStorage.getItem("token");
-    return token;
-    // Diğer işlemler...
-  }
-  const [links, setLinks] = useState<string[]>([]);
+  const [links, setLinks] = useState([]);
   const [linkInput, setLinkInput] = useState("");
+  const token = localStorage.getItem("token");
+
   const [formData, setFormData] = useState({
     title: "",
     content: "",
     category: "",
     image: "",
   });
+  const router = useRouter();
+ 
+  
 
-  const addLink = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const addLink = (e) => {
     e.preventDefault();
     if (linkInput !== "") {
       setLinks((prev) => [...prev, linkInput]);
@@ -32,17 +30,17 @@ export default function CreatePostForm() {
     }
   };
 
-  const deleteLink = (index: number) => {
+  const deleteLink = (index) => {
     setLinks((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {

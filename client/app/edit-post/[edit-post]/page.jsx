@@ -11,13 +11,9 @@ export default function EditPostForm() {
   
   const router = useRouter();
   const postId = window.location.pathname.split('/').pop();
-  if (typeof window !== "undefined") {
-    // Tarayıcı tarafında çalışan kodlar buraya gelecek
-    const token = localStorage.getItem("token");
-    return token;
-    // Diğer işlemler...
-  }
-  const [links, setLinks] = useState<string[]>([]);
+  const token = localStorage.getItem("token");
+
+  const [links, setLinks] = useState([]);
   const [linkInput, setLinkInput] = useState("");
   const [formData, setFormData] = useState({
     title: "",
@@ -50,7 +46,7 @@ export default function EditPostForm() {
     getData();
   }, [postId, token]);
 
-  const addLink = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const addLink = (e) => {
     e.preventDefault();
     if (linkInput !== "") {
       setLinks((prev) => [...prev, linkInput]);
@@ -58,11 +54,11 @@ export default function EditPostForm() {
     }
   };
 
-  const deleteLink = (index: number) => {
+  const deleteLink = (index) => {
     setLinks((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -87,7 +83,7 @@ export default function EditPostForm() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     await putData();
   };
