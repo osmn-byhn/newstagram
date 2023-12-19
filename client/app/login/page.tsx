@@ -5,7 +5,6 @@ import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 
-
 export default function SignIn() {
   const router = useRouter();
   const [email, setEmail] = useState('');

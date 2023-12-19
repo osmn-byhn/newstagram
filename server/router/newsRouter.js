@@ -102,6 +102,8 @@ router.get('/:userId/:newId', async (req, res) => {
 
 
 
+
+
 // burası okey amk
 router.post('/:id', async (req, res) => {
   let token = req.params.id;

@@ -76,7 +76,7 @@ export default function Dashboard() {
                   </li>
                 </ul>
                 <div className='flex gap-3 font-bold py-2 px-4 rounded-md bg-slate-200 w-fit'>
-                <Link href={`/edit-post/${post.id}`}>Edit</Link>
+                <Link href={`/edit-post/${post._id}`}>Edit</Link>
                 <button className="text-red-600 " onClick={() => handleDelete(post._id)}>Delete</button>
               </div>
               </div>
