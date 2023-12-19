@@ -16,7 +16,7 @@ export default function SignIn() {
   const validRegexEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$/;
   const validRegexPassword = /^(?=.*\d)(?=.*[.!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
 
-  const signup = async (e) => {
+  const signup = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault(); // Prevents the default form submission behavior
     try {
       const user = {
@@ -36,8 +36,8 @@ export default function SignIn() {
       } else {
         setError('Invalid email');
       }
-    } catch (err) {
-      console.log(err.response.data.error);
+    } catch (error) {
+      console.log(error);
     }
   };
 
