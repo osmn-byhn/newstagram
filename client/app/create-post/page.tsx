@@ -1,18 +1,22 @@
 "use client";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useState } from "react";
 import axios from "axios";
 import { categoriesData } from "../../data";
 import Link from "next/link";
+import Head from 'next/head';
+import { useRouter } from "next/navigation";
 
 export default function CreatePostForm() {
+  const router = useRouter();
+  const token = localStorage.getItem('token')
   const [links, setLinks] = useState<string[]>([]);
   const [linkInput, setLinkInput] = useState("");
-  const token = localStorage.getItem('token')
   const [formData, setFormData] = useState({
     title: "",
     content: "",
     category: "",
-    image: "", // Resim dosyasını saklamak için
+    image: "",
   });
 
   const addLink = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -34,35 +38,40 @@ export default function CreatePostForm() {
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      // Resim dahil tüm form verilerini içeren bir FormData nesnesi oluşturun
-      const data = new FormData();
-      data.append("title", formData.title);
-      data.append("content", formData.content);
-      data.append("category", formData.category);
-      data.append("image", formData.image);
-      links.forEach((link, index) => {
-        data.append(`links[${index}]`, link);
-      });
+  try {
+    // Resim dahil tüm form verilerini içeren bir obje oluşturun
+    const postData = {
+      title: formData.title,
+      content: formData.content,
+      category: formData.category,
+      image: formData.image,
+      links: links,
+    };
 
-      // Post işlemi için Axios kullanımı
-      const response = await axios.post(`http://localhost:5000/news/${token}`, data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+    // Post işlemi için Axios kullanımı
+    const response = await axios.post(`http://localhost:5000/news/${token}`, postData);
+    console.log(postData.links);
+    
 
-      console.log("Post işlemi başarılı:", response.data);
-      // Başarı durumuna göre yönlendirme veya başka bir işlem yapabilirsiniz.
-    } catch (error) {
-      console.error("Post işlemi hatası:", error);
-    }
-  };
+    console.log("Post işlemi başarılı:", response.data);
+    router.push('/dashboard');
+    
+    // Başarı durumuna göre yönlendirme veya başka bir işlem yapabilirsiniz.
+  } catch (error) {
+    console.error("Post işlemi hatası:", error);
+  }
+};
+
 
   return (
     <>
+      <Head>
+        <title>Sign in</title>
+        {/* Use the correct CDN link for Bootstrap Icons */}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" />
+      </Head>
       <h1 className="text-2xl font-bold my-12 text-center">Create Post</h1>
       <form className="flex flex-col gap-2 mt-50" onSubmit={handleSubmit}>
         {/* Diğer form alanları... */}
@@ -70,7 +79,7 @@ export default function CreatePostForm() {
         <textarea name="content" id="content" placeholder="Content of post..." onChange={handleChange} value={formData.content}></textarea>
 
         {/* Resim yükleme alanı */}
-        <input type="texts" name="image" id="image" placeholder="Add image link" onChange={handleChange} value={formData.image} />
+        <input type="text" name="image" id="image" placeholder="Add image link" onChange={handleChange} value={formData.image} />
 
         {/* Links listesi */}
         {links &&

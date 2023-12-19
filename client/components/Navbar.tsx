@@ -33,9 +33,8 @@ function Navbar() {
       <div className="flex justify-between mt-12 border-b pb-4">
         <div>
           <Link href={'/'} className="font-bold text-3xl">
-            NextBlog
+            Newstagram
           </Link>
-          <p>My First Next CRUD Project</p>
         </div>
 
         {isLogin ? (
