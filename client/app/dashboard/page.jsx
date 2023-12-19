@@ -9,12 +9,8 @@ import { useRouter } from 'next/navigation';
 export default function Dashboard() {
   const router = useRouter();
   const [deger, setDeger] = useState([]);
-      if (typeof window !== "undefined") {
-          // Tarayıcı tarafında çalışan kodlar buraya gelecek
-          const token = localStorage.getItem("token");
-          return token;
-          // Diğer işlemler...
-        }
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     async function getItems() {
       try {
