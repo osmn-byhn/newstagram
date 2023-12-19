@@ -44,10 +44,10 @@ export default function Home() {
         deger.map((post, key) => (
           <div className='my-20' key={key}>
             <div >
-              {post.newsList && post.newsList.length > 0 ? (
-                <ul>
-                  {post.newsList.map((news, newsKey) => (
-                    <li key={newsKey} className='my-20'>
+            {post && 'newsList' in post && post.newsList && post.newsList.length > 0 ? (
+              <ul>
+                {post.newsList.map((news, newsKey) => (
+                  <li key={newsKey} className='my-20'>
                       <div className='mb-4'>Posted by: <span className="font-bold">{post.fullName}</span> on <span>{news.date}</span></div>
                       <div className='w-full h-72 relative'>
                         {
