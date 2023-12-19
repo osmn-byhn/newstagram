@@ -19,9 +19,8 @@ export default function Dashboard() {
           router.push('/');
         } else {
           const response = await axios.get(`https://newstagram-backend.onrender.com/news/${token}`);
-          const deger = response.data.user.newsList;
-          setDeger(deger);
-          console.log(deger);
+          const fetchedData = response.data.user.newsList;
+          setDeger(fetchedData);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -34,13 +33,8 @@ export default function Dashboard() {
   const handleDelete = async (postId) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.delete(`https://newstagram-backend.onrender.com/news/${token}/${postId}`, {
-        headers: {
-          // Gerekirse Authorization veya diğer başlıkları ekleyebilirsiniz
-        },
-      });
-
-      console.log('Silme işlemi başarılı:', response.data);
+      await axios.delete(`https://newstagram-backend.onrender.com/news/${token}/${postId}`);
+      console.log('Silme işlemi başarılı');
       window.location.reload();
     } catch (error) {
       console.error('Silme işlemi hatası:', error);
@@ -58,20 +52,26 @@ export default function Dashboard() {
                 <ul>
                   <li key={key}>
                     <div className='w-full h-72 relative'>
-                      {
-                        post.image ? (
-                          <Image src={post.image} alt={post.title} layout="fill" objectFit="cover" className='rounded-md object-center' />
-                        ) : <Image src={'https://altinbilek.com.tr/wp-content/plugins/penci-portfolio//images/no-thumbnail.jpg'} alt={'Not Thumbnail'} layout="fill" objectFit="cover" className='rounded-md object-center' />
-                      }
+                      {post.image ? (
+                        <Image src={post.image} alt={post.title} layout="fill" objectFit="cover" className='rounded-md object-center' />
+                      ) : (
+                        <Image src={'https://altinbilek.com.tr/wp-content/plugins/penci-portfolio//images/no-thumbnail.jpg'} alt={'Not Thumbnail'} layout="fill" objectFit="cover" className='rounded-md object-center' />
+                      )}
                     </div>
-                    {post.category && (<Link href={`/categories/${post.category}`}><a className="bg-slate-800 w-fit text-white px-4 py-0.5 text-sm font-bold rounded-md mt-4 block">{post.category}</a></Link>)}
+                    {post.category && (
+                      <Link className="bg-slate-800 w-fit text-white px-4 py-0.5 text-sm font-bold rounded-md mt-4 block" href={`/categories/${post.category}`}>
+                        {post.category}
+                      </Link>
+                    )}
                     <h2 className='text-2xl font-bold my-4'>{post.title}</h2>
-                    <p className='leading-loose '>{post.content}</p>
+                    <p className='leading-loose'>{post.content}</p>
                     {post.links && (
                       <div className='my-4 flex flex-col gap-3'>
                         {post.links.map((link, i) => (
-                          <div key={i} className='flex gap-2 item-center '>
-                            <Link href={link}><a className='text-[#7563DF] font-bold max-w-full over-hidden text-ellipsis'><i className="bi bi-link-45deg"></i> {link}</a></Link>
+                          <div key={i} className='flex gap-2 item-center'>
+                            <Link className='text-[#7563DF] font-bold max-w-full over-hidden text-ellipsis' href={link}>
+                              <i className="bi bi-link-45deg"></i> {link}
+                            </Link>
                           </div>
                         ))}
                       </div>
@@ -79,7 +79,9 @@ export default function Dashboard() {
                   </li>
                 </ul>
                 <div className='flex gap-3 font-bold py-2 px-4 rounded-md bg-slate-200 w-fit'>
-                  <Link href={`/edit-post/${post._id}`}><a>Edit</a></Link>
+                  <Link href={`/edit-post/${post._id}`}>
+                    Edit
+                  </Link>
                   <button className="text-red-600" onClick={() => handleDelete(post._id)}>Delete</button>
                 </div>
               </div>
@@ -88,7 +90,9 @@ export default function Dashboard() {
         ) : (
           <div>
             <span>No post created yet. </span>
-            <Link href={'/create-post'}><a className="underline font-bold">Create New Post</a></Link>
+            <Link className="underline font-bold" href={'/create-post'}>
+             Create New Post
+            </Link>
           </div>
         )}
       </div>

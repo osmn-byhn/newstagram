@@ -5,7 +5,7 @@ import axios from "axios";
 import { categoriesData } from "../../../data";
 import Link from "next/link";
 import Head from 'next/head';
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function EditPostForm() {
   const router = useRouter();
