@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router'; // 'next/navigation' -> 'next/router' olarak değiştirildi
+import { useRouter } from "next/navigation";
 
 export default function SignIn() {
   const router = useRouter();
