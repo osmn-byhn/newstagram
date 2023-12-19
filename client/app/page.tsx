@@ -11,13 +11,7 @@ import DeleteButton from '../components/DeleteButton';
 export default function Home() {
   // Sayfa ilk defa yüklendiğinde çalışacak kod
   // Yeniden başlatma işlemi
-  if (!localStorage.getItem('pageReloaded')) {
-    // Yeniden başlatma işlemi
-    location.reload(true);
   
-    // Bayrağı işaretleyerek bir kere yeniden başlatıldığını kaydet
-    localStorage.setItem('pageReloaded', 'true');
-  }
 
   const [deger, setDeger] = useState([]);
 
