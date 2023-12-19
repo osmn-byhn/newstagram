@@ -42,9 +42,14 @@ export default function SignIn() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('token') !== null) {
-      router.push('/home');
+    if (typeof window !== "undefined") {
+      // Tarayıcı tarafında çalışan kodlar buraya gelecek
+      if (localStorage.getItem('token') !== null) {
+        router.push('/home');
+      }
+      // Diğer işlemler...
     }
+    
   }, [router]);
 
   return (

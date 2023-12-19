@@ -1,5 +1,4 @@
 "use client";
-import babel from "next/babel";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -10,8 +9,12 @@ import { useRouter } from 'next/navigation';
 export default function Dashboard() {
   const router = useRouter();
   const [deger, setDeger] = useState([]);
-  const token = localStorage.getItem("token");
-
+  if (typeof window !== "undefined") {
+    // Tarayıcı tarafında çalışan kodlar buraya gelecek
+    const token = localStorage.getItem("token");
+    return token;
+    // Diğer işlemler...
+  }
   useEffect(() => {
     async function getItems() {
       try {

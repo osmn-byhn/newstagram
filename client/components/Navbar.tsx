@@ -4,13 +4,16 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation'
 function Navbar() {
+  
   const [isLogin, setIsLogin] = useState(false);
   const router = useRouter();
+  
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
     // Sayfa yüklendiğinde localStorage kontrolü yap
-    const storedData = localStorage.getItem('token'); // 'yourKey' kısmını kendi anahtarınızla değiştirin
-    if (storedData) {
+    if (token) {
       setIsLogin(true);
     } else {
       setIsLogin(false);
