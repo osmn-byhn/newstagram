@@ -27,7 +27,7 @@ export default function Dashboard() {
     }
 
     getItems();
-  }, []);
+  }, [router]);
 
   const handleDelete = async (postId) => {
     try {

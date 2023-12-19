@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from "next/link";
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 import DeleteButton from '../components/DeleteButton';
@@ -20,7 +19,6 @@ export default function Home() {
     localStorage.setItem('pageReloaded', 'true');
   }
 
-  const router = useRouter();
   const [deger, setDeger] = useState([]);
 
   useEffect(() => {
