@@ -11,7 +11,12 @@ export default function EditPostForm() {
   
   const router = useRouter();
   const postId = window.location.pathname.split('/').pop();
-  const token = localStorage.getItem('token');
+  if (typeof window !== "undefined") {
+    // Tarayıcı tarafında çalışan kodlar buraya gelecek
+    const token = localStorage.getItem("token");
+    return token;
+    // Diğer işlemler...
+  }
   const [links, setLinks] = useState<string[]>([]);
   const [linkInput, setLinkInput] = useState("");
   const [formData, setFormData] = useState({

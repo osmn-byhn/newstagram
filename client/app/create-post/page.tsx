@@ -9,7 +9,12 @@ import { useRouter } from "next/navigation";
 
 export default function CreatePostForm() {
   const router = useRouter();
-  const token = localStorage.getItem('token')
+  if (typeof window !== "undefined") {
+    // Tarayıcı tarafında çalışan kodlar buraya gelecek
+    const token = localStorage.getItem("token");
+    return token;
+    // Diğer işlemler...
+  }
   const [links, setLinks] = useState<string[]>([]);
   const [linkInput, setLinkInput] = useState("");
   const [formData, setFormData] = useState({

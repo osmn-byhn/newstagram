@@ -28,7 +28,7 @@ export default function SignIn() {
         if (validRegexPassword.test(password)) {
           await axios.post('https://newstagram-backend.onrender.com/signup', user);
           setTimeout(() => {
-            router.push('/');
+            router.push('/login');
           }, 7500);
         } else {
           setError('Invalid password');

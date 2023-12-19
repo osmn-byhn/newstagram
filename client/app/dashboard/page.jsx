@@ -9,11 +9,17 @@ import { useRouter } from 'next/navigation';
 export default function Dashboard() {
   const router = useRouter();
   const [deger, setDeger] = useState([]);
-
+      if (typeof window !== "undefined") {
+          // Tarayıcı tarafında çalışan kodlar buraya gelecek
+          const token = localStorage.getItem("token");
+          return token;
+          // Diğer işlemler...
+        }
   useEffect(() => {
     async function getItems() {
       try {
-        if (localStorage.getItem('token') === null) {
+        
+        if (token === null) {
           router.push('/');
         } else {
           const response = await axios.get(`https://newstagram-backend.onrender.com/news/${localStorage.getItem('token')}`);
