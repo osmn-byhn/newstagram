@@ -140,7 +140,7 @@ export default function EditPostForm() {
         </button>
 
         {/* Hata mesajı */}
-        <div className="text-red-500 p-2 font-bold text-center">If the data hasn't loaded, please refresh the page with F5.</div>
+        <div className="text-red-500 p-2 font-bold text-center">If the data hasnt loaded, please refresh the page with F5.</div>
       </form>
     </>
   );
