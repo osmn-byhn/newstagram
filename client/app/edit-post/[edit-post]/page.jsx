@@ -5,18 +5,11 @@ import axios from "axios";
 import { categoriesData } from "../../../data";
 import Link from "next/link";
 import Head from 'next/head';
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
 export default function EditPostForm() {
-  
   const router = useRouter();
   const postId = window.location.pathname.split('/').pop();
-  if (typeof window !== "undefined") {
-    // Tarayıcı tarafında çalışan kodlar buraya gelecek
-    const token = localStorage.getItem("token");
-    return token;
-    // Diğer işlemler...
-  }
 
   const [links, setLinks] = useState([]);
   const [linkInput, setLinkInput] = useState("");
@@ -30,26 +23,30 @@ export default function EditPostForm() {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await axios.get(`https://newstagram-backend.onrender.com/news/${token}/${postId}`);
-        const postData = response.data;
-        console.log(response);
-        
-        setFormData({
-          title: postData.newsItem.title,
-          content: postData.newsItem.content,
-          category: postData.newsItem.category,
-          image: postData.newsItem.image,
-          
-        });
+        const token = localStorage.getItem("token");
 
-        setLinks(postData.newsItem.links || []);
+        if (!token) {
+          router.push('/');
+        } else {
+          const response = await axios.get(`https://newstagram-backend.onrender.com/news/${token}/${postId}`);
+          const postData = response.data;
+
+          setFormData({
+            title: postData.newsItem.title,
+            content: postData.newsItem.content,
+            category: postData.newsItem.category,
+            image: postData.newsItem.image,
+          });
+
+          setLinks(postData.newsItem.links || []);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
 
     getData();
-  }, [postId, token]);
+  }, [postId, router]);
 
   const addLink = (e) => {
     e.preventDefault();
@@ -70,6 +67,7 @@ export default function EditPostForm() {
 
   const putData = async () => {
     try {
+      const token = localStorage.getItem("token");
       const postData = {
         title: formData.title,
         content: formData.content,
@@ -146,7 +144,7 @@ export default function EditPostForm() {
         </button>
 
         {/* Hata mesajı */}
-        <div className="text-red-500 p-2 font-bold text-center">If the data hasnt loaded, please refresh the page with F5.</div>
+        <div className="text-red-500 p-2 font-bold text-center">If the data hasn't loaded, please refresh the page with F5.</div>
       </form>
     </>
   );

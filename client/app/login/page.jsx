@@ -4,13 +4,15 @@ import Head from 'next/head';
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-
 export default function SignIn() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
     try {
       const user = {
         email,
@@ -24,7 +26,13 @@ export default function SignIn() {
         router.push('/');
       }
     } catch (error) {
-      console.error('Error fetching data:', error);
+      if (error.response) {
+        // Server tarafından gelen hata
+        setError(error.response.data.error);
+      } else {
+        // Diğer hatalar
+        setError('An error occurred during login.');
+      }
     }
   };
 
@@ -38,12 +46,11 @@ export default function SignIn() {
     <div>
       <Head>
         <title>Sign in</title>
-        {/* Use the correct CDN link for Bootstrap Icons */}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" />
       </Head>
       <div className="container mt-40">
         <h1 className="text-2xl font-bold text-center my-12">Login Next Blog</h1>
-        <form className="flex flex-col gap-2" onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
+        <form className="flex flex-col gap-2" onSubmit={handleLogin}>
           <input
             type="email"
             name="email"
@@ -62,8 +69,13 @@ export default function SignIn() {
             id="password"
             placeholder="Enter your password"
           />
-          <button type="submit" className="bg-slate-800 text-white px-4 py-2 mt-12 rounded-md" disabled={password.length <= 8}>Login</button>
-          <Link href="/sign-in" className="bg-[rgba('0,0,0,0')] text-black px-4 py-2 mt-1 rounded-md text-center">Sign-up</Link>
+          {error && <p className="text-red-500">{error}</p>}
+          <button type="submit" className="bg-slate-800 text-white px-4 py-2 mt-12 rounded-md" disabled={password.length <= 8}>
+            Login
+          </button>
+          <Link href="/sign-in" className="bg-[rgba('0,0,0,0')] text-black px-4 py-2 mt-1 rounded-md text-center">
+            Sign-up
+          </Link>
         </form>
       </div>
     </div>

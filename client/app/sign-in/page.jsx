@@ -1,10 +1,9 @@
 'use client';
-
 import Head from 'next/head';
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router'; // 'next/navigation' -> 'next/router' olarak değiştirildi
 
 export default function SignIn() {
   const router = useRouter();
@@ -17,7 +16,7 @@ export default function SignIn() {
   const validRegexPassword = /^(?=.*\d)(?=.*[.!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
 
   const signup = async (e) => {
-    e.preventDefault(); // Prevents the default form submission behavior
+    e.preventDefault();
     try {
       const user = {
         fullName,
@@ -42,21 +41,17 @@ export default function SignIn() {
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Tarayıcı tarafında çalışan kodlar buraya gelecek
+    if (typeof window !== 'undefined') {
       if (localStorage.getItem('token') !== null) {
         router.push('/home');
       }
-      // Diğer işlemler...
     }
-    
   }, [router]);
 
   return (
     <div>
       <Head>
         <title>Sign in</title>
-        {/* Use the correct CDN link for Bootstrap Icons */}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.17.0/font/bootstrap-icons.css" />
       </Head>
       <div className="container mt-40">
